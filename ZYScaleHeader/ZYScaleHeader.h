@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface ZYScaleHeader : UIView
+
+/**
+ 通过图片名创建一个headerview
+ 默认宽度为屏幕的宽度, 高度为 宽度 * image高度 / image宽度
+
+ @param imgName imagename
+ @return ZYScaleHeader 对象
+ */
 + (instancetype)headerWithImageNamed:(NSString *)imgName;
 + (instancetype)headerWithImage:(UIImage *)image;
 @end

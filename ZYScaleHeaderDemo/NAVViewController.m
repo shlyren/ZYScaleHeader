@@ -51,7 +51,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -98,17 +98,20 @@
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    switch (indexPath.row) {
+    switch (indexPath.row)
+    {
         case 0:
         {
             TableViewController *tableV = [TableViewController new];
             tableV.title = cell.textLabel.text;
             ZYScaleHeader *header = [ZYScaleHeader headerWithImageNamed:@"psb-12"];
+
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setImage:[UIImage imageNamed:@"690"] forState:UIControlStateNormal];
             btn.frame = CGRectMake(header.frame.size.width * 0.5 - 25, header.frame.size.height - 80, 50, 50);
             [btn addTarget:tableV action:@selector(btnclick) forControlEvents:UIControlEventTouchUpInside];
             [header addSubview:btn];
+            
             tableV.tableView.zy_header = header;
             [self presentViewController:tableV animated:true completion:nil];
         }

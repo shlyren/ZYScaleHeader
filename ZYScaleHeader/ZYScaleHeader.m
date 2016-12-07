@@ -9,8 +9,8 @@
 #import "ZYScaleHeader.h"
 #import <objc/runtime.h>
 
+#pragma mark - 获取当前view的控制
 @implementation UIView (Extend)
-
 - (UIViewController *)viewController
 {
     for (UIView *next = [self superview]; next; next = next.superview)
@@ -21,9 +21,9 @@
     }
     return nil;
 }
-
 @end
 
+/** 此类用于区别与内部缩放的imageview */
 @interface ZYImageView : UIImageView
 @end
 @implementation ZYImageView
@@ -41,14 +41,14 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 {
     return [self headerWithImage:[UIImage imageNamed:imgName]];
 }
-
 + (instancetype)headerWithImage:(UIImage *)image
 {
     ZYScaleHeader *header = [ZYScaleHeader new];
     if (!image) return header;
-    CGSize imgSize = image.size;
-    CGFloat imgH = header.frame.size.width * (imgSize.height / imgSize.width);
-    header.frame = CGRectMake(0, 0, 0, imgH);
+    
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat imgH = width * (image.size.height / image.size.width);
+    header.frame = CGRectMake(0, 0, width, imgH);
     
     ZYImageView *imageV = [[ZYImageView alloc] initWithImage:image];
     imageV.frame = header.bounds;
@@ -60,10 +60,14 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
     return header;
 }
 
+
+/**
+ 这里该不该重写?
+ */
 - (void)setFrame:(CGRect)frame
 {
     CGFloat height = frame.size.height;
-    [super setFrame:CGRectMake(0, -height, [UIScreen mainScreen].bounds.size.width, height)];
+    [super setFrame:CGRectMake(0, -height, frame.size.width, height)];
 }
 
 - (void)addSubview:(UIView *)view
@@ -106,15 +110,10 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
-    CGFloat offSetY = self.scrollView.contentOffset.y + self.frame.size.height;
-    if (offSetY)
-    {
-        CGFloat height = self.frame.size.height - offSetY;
-        self.frame = CGRectMake(0, -height, self.frame.size.width, height);
-    }
-
+ 
+    CGFloat offsetY = self.scrollView.contentOffset.y;
+    self.frame = CGRectMake(0, offsetY, self.frame.size.width, -offsetY);
 }
-
 @end
 
 @implementation UIScrollView (ZYScaleHeader)
@@ -123,22 +122,20 @@ static char ZYScaleHeaderKey = '\0';
 {
     if (self.zy_header == zy_header) return;
     
-    CGFloat top = zy_header.frame.size.height;
+    CGFloat height = zy_header.frame.size.height;
     if ([self.viewController isKindOfClass:[UINavigationController class]])
     {
         UINavigationController *nav = (UINavigationController *)self.viewController;
         if (!nav.navigationBar.isHidden)
         {
-            top += nav.navigationBar.frame.size.height + (nav.prefersStatusBarHidden ?:20);
-            zy_header.frame = CGRectMake(0, 0, 0, top);
+            height += nav.navigationBar.frame.size.height + (nav.prefersStatusBarHidden ?:20);
         }
     }
-    self.contentInset = UIEdgeInsetsMake(top, 0, 0, 0);
+    zy_header.frame = CGRectMake(0, -height, self.frame.size.width, height);
+    self.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
 
     [self.zy_header removeFromSuperview];
-    
     objc_setAssociatedObject(self, &ZYScaleHeaderKey, zy_header, OBJC_ASSOCIATION_ASSIGN);
-    
     [self insertSubview:zy_header atIndex:0];
     
 }
@@ -148,5 +145,5 @@ static char ZYScaleHeaderKey = '\0';
     return objc_getAssociatedObject(self, &ZYScaleHeaderKey);
 }
 
-
 @end
+
