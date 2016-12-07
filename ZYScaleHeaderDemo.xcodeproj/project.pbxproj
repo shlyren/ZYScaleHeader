@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		808AB6621DF7A6BA007E0382 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808AB6611DF7A6BA007E0382 /* TableViewController.m */; };
+		808AB6681DF7B2E0007E0382 /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808AB6671DF7B2E0007E0382 /* ScrollViewController.m */; };
 		8095EA031DF6B6ED00E0F037 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8095EA021DF6B6ED00E0F037 /* main.m */; };
 		8095EA061DF6B6ED00E0F037 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8095EA051DF6B6ED00E0F037 /* AppDelegate.m */; };
 		8095EA091DF6B6ED00E0F037 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8095EA081DF6B6ED00E0F037 /* ViewController.m */; };
@@ -20,6 +21,8 @@
 /* Begin PBXFileReference section */
 		808AB6601DF7A6BA007E0382 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		808AB6611DF7A6BA007E0382 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		808AB6661DF7B2E0007E0382 /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
+		808AB6671DF7B2E0007E0382 /* ScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewController.m; sourceTree = "<group>"; };
 		8095E9FE1DF6B6ED00E0F037 /* ZYScaleHeaderDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZYScaleHeaderDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8095EA021DF6B6ED00E0F037 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8095EA041DF6B6ED00E0F037 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -69,6 +72,8 @@
 				8095EA051DF6B6ED00E0F037 /* AppDelegate.m */,
 				8095EA071DF6B6ED00E0F037 /* ViewController.h */,
 				8095EA081DF6B6ED00E0F037 /* ViewController.m */,
+				808AB6661DF7B2E0007E0382 /* ScrollViewController.h */,
+				808AB6671DF7B2E0007E0382 /* ScrollViewController.m */,
 				808AB6601DF7A6BA007E0382 /* TableViewController.h */,
 				808AB6611DF7A6BA007E0382 /* TableViewController.m */,
 				8095EA0A1DF6B6ED00E0F037 /* Main.storyboard */,
@@ -172,6 +177,7 @@
 				8095EA091DF6B6ED00E0F037 /* ViewController.m in Sources */,
 				8095EA061DF6B6ED00E0F037 /* AppDelegate.m in Sources */,
 				8095EA1E1DF6B80A00E0F037 /* ZYScaleHeader.m in Sources */,
+				808AB6681DF7B2E0007E0382 /* ScrollViewController.m in Sources */,
 				808AB6621DF7A6BA007E0382 /* TableViewController.m in Sources */,
 				8095EA031DF6B6ED00E0F037 /* main.m in Sources */,
 			);

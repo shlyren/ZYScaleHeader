@@ -10,21 +10,6 @@
 #import <objc/runtime.h>
 #define ZYScreenW [UIScreen mainScreen].bounds.size.width
 
-@implementation UIView (Category)
-- (UIViewController *)currentViewController
-{
-    id viewController = [self nextResponder];
-    UIView *view      = self;
-    
-    while (viewController && ![viewController isKindOfClass:[UIViewController class]])
-    {
-        view           = [view superview];
-        viewController = [view nextResponder];
-    }
-    
-    return viewController;
-}
-@end
 
 @interface ZYImageView : UIImageView
 @end
@@ -110,7 +95,7 @@
 - (void)addObservers
 {
 #ifdef DEBUG
-    NSLog(@"%s %@", __func__, self.scrollView);
+    NSLog(@"%s %@", __func__, self.scrollView.class);
 #endif
     [self.scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
 }
@@ -118,7 +103,7 @@
 - (void)removeObservers
 {
 #ifdef DEBUG
-    NSLog(@"%s %@", __func__, self.superview);
+    NSLog(@"%s %@", __func__, self.superview.class);
 #endif
     [self.superview removeObserver:self forKeyPath:@"contentOffset"];
 }
