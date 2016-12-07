@@ -1,5 +1,5 @@
 //
-//  TableViewController.h
+//  TabBarController.h
 //  ZYScaleHeaderDemo
 //
 //  Created by JiaQi on 2016/12/7.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TableViewController : UITableViewController
-- (void)btnclick;
+@interface TabBarController : UITabBarController
+
 @end

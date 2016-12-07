@@ -10,10 +10,10 @@
 		808AB6621DF7A6BA007E0382 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808AB6611DF7A6BA007E0382 /* TableViewController.m */; };
 		808AB6681DF7B2E0007E0382 /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808AB6671DF7B2E0007E0382 /* ScrollViewController.m */; };
 		808AB66B1DF7E9E5007E0382 /* NAVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808AB66A1DF7E9E5007E0382 /* NAVViewController.m */; };
+		808AB66E1DF7EE09007E0382 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808AB66D1DF7EE09007E0382 /* TabBarController.m */; };
 		8095EA031DF6B6ED00E0F037 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8095EA021DF6B6ED00E0F037 /* main.m */; };
 		8095EA061DF6B6ED00E0F037 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8095EA051DF6B6ED00E0F037 /* AppDelegate.m */; };
 		8095EA091DF6B6ED00E0F037 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8095EA081DF6B6ED00E0F037 /* ViewController.m */; };
-		8095EA0C1DF6B6ED00E0F037 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8095EA0A1DF6B6ED00E0F037 /* Main.storyboard */; };
 		8095EA0E1DF6B6ED00E0F037 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8095EA0D1DF6B6ED00E0F037 /* Assets.xcassets */; };
 		8095EA111DF6B6ED00E0F037 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8095EA0F1DF6B6ED00E0F037 /* LaunchScreen.storyboard */; };
 		8095EA1E1DF6B80A00E0F037 /* ZYScaleHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8095EA1D1DF6B80A00E0F037 /* ZYScaleHeader.m */; };
@@ -26,13 +26,14 @@
 		808AB6671DF7B2E0007E0382 /* ScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewController.m; sourceTree = "<group>"; };
 		808AB6691DF7E9E5007E0382 /* NAVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NAVViewController.h; sourceTree = "<group>"; };
 		808AB66A1DF7E9E5007E0382 /* NAVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NAVViewController.m; sourceTree = "<group>"; };
+		808AB66C1DF7EE09007E0382 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
+		808AB66D1DF7EE09007E0382 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		8095E9FE1DF6B6ED00E0F037 /* ZYScaleHeaderDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZYScaleHeaderDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8095EA021DF6B6ED00E0F037 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8095EA041DF6B6ED00E0F037 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8095EA051DF6B6ED00E0F037 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8095EA071DF6B6ED00E0F037 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		8095EA081DF6B6ED00E0F037 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		8095EA0B1DF6B6ED00E0F037 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8095EA0D1DF6B6ED00E0F037 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8095EA101DF6B6ED00E0F037 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8095EA121DF6B6ED00E0F037 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,6 +52,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		808AB66F1DF7F570007E0382 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		8095E9F51DF6B6ED00E0F037 = {
 			isa = PBXGroup;
 			children = (
@@ -71,8 +79,7 @@
 		8095EA001DF6B6ED00E0F037 /* ZYScaleHeaderDemo */ = {
 			isa = PBXGroup;
 			children = (
-				8095EA041DF6B6ED00E0F037 /* AppDelegate.h */,
-				8095EA051DF6B6ED00E0F037 /* AppDelegate.m */,
+				808AB66F1DF7F570007E0382 /* View */,
 				8095EA071DF6B6ED00E0F037 /* ViewController.h */,
 				8095EA081DF6B6ED00E0F037 /* ViewController.m */,
 				808AB6691DF7E9E5007E0382 /* NAVViewController.h */,
@@ -81,10 +88,8 @@
 				808AB6671DF7B2E0007E0382 /* ScrollViewController.m */,
 				808AB6601DF7A6BA007E0382 /* TableViewController.h */,
 				808AB6611DF7A6BA007E0382 /* TableViewController.m */,
-				8095EA0A1DF6B6ED00E0F037 /* Main.storyboard */,
-				8095EA0D1DF6B6ED00E0F037 /* Assets.xcassets */,
-				8095EA0F1DF6B6ED00E0F037 /* LaunchScreen.storyboard */,
-				8095EA121DF6B6ED00E0F037 /* Info.plist */,
+				808AB66C1DF7EE09007E0382 /* TabBarController.h */,
+				808AB66D1DF7EE09007E0382 /* TabBarController.m */,
 				8095EA011DF6B6ED00E0F037 /* Supporting Files */,
 			);
 			path = ZYScaleHeaderDemo;
@@ -93,6 +98,11 @@
 		8095EA011DF6B6ED00E0F037 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8095EA0D1DF6B6ED00E0F037 /* Assets.xcassets */,
+				8095EA0F1DF6B6ED00E0F037 /* LaunchScreen.storyboard */,
+				8095EA121DF6B6ED00E0F037 /* Info.plist */,
+				8095EA041DF6B6ED00E0F037 /* AppDelegate.h */,
+				8095EA051DF6B6ED00E0F037 /* AppDelegate.m */,
 				8095EA021DF6B6ED00E0F037 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -168,7 +178,6 @@
 			files = (
 				8095EA111DF6B6ED00E0F037 /* LaunchScreen.storyboard in Resources */,
 				8095EA0E1DF6B6ED00E0F037 /* Assets.xcassets in Resources */,
-				8095EA0C1DF6B6ED00E0F037 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +193,7 @@
 				808AB66B1DF7E9E5007E0382 /* NAVViewController.m in Sources */,
 				8095EA1E1DF6B80A00E0F037 /* ZYScaleHeader.m in Sources */,
 				808AB6681DF7B2E0007E0382 /* ScrollViewController.m in Sources */,
+				808AB66E1DF7EE09007E0382 /* TabBarController.m in Sources */,
 				808AB6621DF7A6BA007E0382 /* TableViewController.m in Sources */,
 				8095EA031DF6B6ED00E0F037 /* main.m in Sources */,
 			);
@@ -192,14 +202,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		8095EA0A1DF6B6ED00E0F037 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8095EA0B1DF6B6ED00E0F037 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		8095EA0F1DF6B6ED00E0F037 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

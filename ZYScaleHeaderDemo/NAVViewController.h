@@ -8,6 +8,6 @@
 
 #import "ViewController.h"
 
-@interface NAVViewController : ViewController
+@interface NAVViewController : UITableViewController
 
 @end

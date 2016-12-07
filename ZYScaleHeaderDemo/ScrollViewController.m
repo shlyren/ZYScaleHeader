@@ -26,4 +26,12 @@
     
     return _scrollView;
 }
+- (void)btnclick
+{
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:true];
+    }else{
+        [self dismissViewControllerAnimated:true completion:nil];
+    }
+}
 @end
