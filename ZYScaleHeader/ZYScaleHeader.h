@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ZYScaleHeader : UIView
-+ (instancetype)headerWithImage:(NSString *)img;
++ (instancetype)headerWithImageNamed:(NSString *)imgName;
++ (instancetype)headerWithImage:(UIImage *)image;
 @end
-
 
 @interface UIScrollView (ZYScaleHeader)
 @property (nonatomic, weak) ZYScaleHeader *zy_header;

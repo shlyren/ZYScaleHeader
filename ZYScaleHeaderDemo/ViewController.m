@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "TableViewController.h"
 #import "ScrollViewController.h"
+#import "NAVViewController.h"
 
 @interface ViewController ()
 
@@ -19,9 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"normal";
-    self.tableView.zy_header = [ZYScaleHeader headerWithImage:@"backimage"];
-    
-    
+    self.tableView.zy_header = [ZYScaleHeader headerWithImageNamed:@"backimage"];
+
 }
 
 
@@ -39,7 +39,35 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"样式 %zd", indexPath.row];
+    
+    switch (indexPath.row) {
+        case 0:
+            cell.textLabel.text = @"push tableview";
+            break;
+        case 1:
+            cell.textLabel.text = @"push scrollView";;
+            break;
+            
+        case 2:
+            cell.textLabel.text = @"set nav hidden";
+            break;
+        case 3:
+            cell.textLabel.text = @"set header is nil";
+            break;
+        case 4:
+            cell.textLabel.text = @"set a new header";
+            break;
+        case 5:
+            cell.textLabel.text = @"present with no navigation";
+            break;
+        case 6:
+            cell.textLabel.text = @"dismiss";
+            break;
+            
+        case 7:
+            cell.textLabel.text = @"pop";
+            break;
+    }
     
     return cell;
 }
@@ -55,10 +83,10 @@
         {
             TableViewController *tableV = [TableViewController new];
             tableV.title = cell.textLabel.text;
-            ZYScaleHeader *header = [ZYScaleHeader headerWithImage:@"backimage"];
+            ZYScaleHeader *header = [ZYScaleHeader headerWithImageNamed:@"backimage"];
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setImage:[UIImage imageNamed:@"690"] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(header.frame.size.width * 0.5 - 25, header.frame.size.height - 20, 50, 50);
+            btn.frame = CGRectMake(header.frame.size.width * 0.5 - 25, header.frame.size.height - 80, 50, 50);
             [btn addTarget:self action:@selector(btnclick) forControlEvents:UIControlEventTouchUpInside];
             [header addSubview:btn];
             tableV.tableView.zy_header = header;
@@ -69,26 +97,58 @@
         {
             ScrollViewController *scrollV = [ScrollViewController new];
             scrollV.title = cell.textLabel.text;
-            ZYScaleHeader *header = [ZYScaleHeader headerWithImage:@"backimage"];
+            ZYScaleHeader *header = [ZYScaleHeader headerWithImageNamed:@"backimage"];
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setImage:[UIImage imageNamed:@"690"] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(header.frame.size.width * 0.5 - 25, header.frame.size.height - 20, 50, 50);
+            btn.frame = CGRectMake(header.frame.size.width * 0.5 - 25, header.frame.size.height - 90, 50, 50);
             [btn addTarget:self action:@selector(btnclick) forControlEvents:UIControlEventTouchUpInside];
             [header addSubview:btn];
+            
+            UILabel *label = [UILabel new];
+            [label setText:@"label"];
+            [label setTextColor:[UIColor whiteColor]];
+            [label setFont:[UIFont systemFontOfSize:13]];
+            [label sizeToFit];
+            
+            label.frame = CGRectMake((header.frame.size.width - label.frame.size.width) * 0.5, CGRectGetMaxY(btn.frame) + 5, label.frame.size.width, label.frame.size.height);
+            [header addSubview:label];
             scrollV.scrollView.zy_header = header;
             [self.navigationController pushViewController:scrollV animated:true];
 
         }
             
             break;
+            
         case 2:
+        {
+            [self.navigationController pushViewController:[NAVViewController new] animated:true];
+        }
+            break;
+            case 3:
+        {
+            tableView.zy_header = nil;
+        }
+            break;
             
+        case 4:
+        {
+            tableView.zy_header = [ZYScaleHeader headerWithImageNamed:@"backimage"];
+        }
             break;
-        case 3:
-            
+        case 5:
+        {
+            [self presentViewController:[ViewController new] animated:true completion:nil];
+        }
             break;
-        default:
+        case 6:
+        {
+            [self dismissViewControllerAnimated:true completion:nil];
+        }
             break;
+        case 7:
+        {
+            [self.navigationController popViewControllerAnimated:true];
+        }
     }
     
    

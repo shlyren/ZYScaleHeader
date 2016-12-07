@@ -17,6 +17,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    
+    UIImage *img = [UIImage imageNamed:@"tableViewHeader"];
+    
+    UIImageView *imgV = [[UIImageView alloc] initWithImage:img];
+    imgV.frame =CGRectMake(0, 0, 0, self.view.frame.size.width * img.size.height / img.size.width);
+    self.tableView.tableHeaderView = imgV;
 }
 
 
