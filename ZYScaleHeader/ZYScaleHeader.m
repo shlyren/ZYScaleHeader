@@ -8,6 +8,8 @@
 
 #import "ZYScaleHeader.h"
 #import <objc/runtime.h>
+#import "UIView+MJExtension.h"
+#import "UIScrollView+MJExtension.h"
 
 #pragma mark - 获取当前view的控制
 @implementation UIView (Extend)
@@ -37,30 +39,89 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 @end
 
 @implementation ZYScaleHeader
+
+#pragma mark - lazy load
+- (ZYImageView *)imageView
+{
+    if (!_imageView)
+    {
+        ZYImageView *imageV = [ZYImageView new];
+        imageV.frame = self.bounds;
+        imageV.contentMode = UIViewContentModeScaleAspectFill;
+        imageV.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        [self insertSubview:_imageView = imageV atIndex:0];
+    }
+    
+    return _imageView;
+}
+
+#pragma mark - super init Methods
+- (instancetype)init
+{
+    return [self initWithImage:nil height:0];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    return [self initWithImage:nil height:frame.size.height];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    return [self initWithImage:nil height:0];
+}
+
+#pragma mark - public methods
 + (instancetype)headerWithImageNamed:(NSString *)imgName
 {
     return [self headerWithImage:[UIImage imageNamed:imgName]];
 }
+
 + (instancetype)headerWithImage:(UIImage *)image
 {
-    ZYScaleHeader *header = [ZYScaleHeader new];
-    if (!image) return header;
+    return [self headerWithImage:image height:0];
+}
+
++ (instancetype)headerWithImageNamed:(NSString *)imgName height:(CGFloat)height
+{
+    return [self headerWithImage:[UIImage imageNamed:imgName] height:height];
+}
+
++ (instancetype)headerWithImage:(UIImage *)image height:(CGFloat)height
+{
+    return [[self alloc] initWithImage:image height:height];
+}
+
+#pragma mark - main methods
+- (instancetype)initWithImage:(UIImage *)image height:(CGFloat)height
+{
+    if (self = [super initWithFrame:CGRectZero])
+    {
+        if (!image) return self;
+        
+        CGFloat width = [UIScreen mainScreen].bounds.size.width;
+        CGFloat imgH =  width * (image.size.height / image.size.width);
+        self.frame = CGRectMake(0, 0, width, height ?: imgH);
+        self.clipsToBounds = true;
+        self.imageView.image = image;
+    }
     
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat imgH = width * (image.size.height / image.size.width);
-    header.frame = CGRectMake(0, 0, width, imgH);
-    
-    ZYImageView *imageV = [[ZYImageView alloc] initWithImage:image];
-    imageV.frame = header.bounds;
-    imageV.contentMode = UIViewContentModeScaleAspectFill;
-    imageV.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    header.clipsToBounds = true;
-    [header addSubview:imageV];
-    
-    return header;
+    return self;
+}
+
+#pragma mark - public variable
+- (void)setImage:(UIImage *)image
+{
+    self.imageView.image = image;
+}
+
+- (UIImage *)image
+{
+    return self.imageView.image;
 }
 
 
+#pragma mark - other
 /**
  这里该不该重写?
  */
@@ -85,8 +146,10 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
     // 如果不是UIScrollView，不做任何事情
     if (newSuperview && ![newSuperview isKindOfClass:[UIScrollView class]]) return;
     
-    // 旧的父控件移除监听
+    // 移除监听
     [self removeObservers];
+    
+     if (!newSuperview) return;
     
     _scrollView = (UIScrollView *)newSuperview;
     
@@ -97,7 +160,7 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 }
 
 
-#pragma mark - KVO监听
+#pragma mark - KVO
 - (void)addObservers
 {
     [self.scrollView addObserver:self forKeyPath:ZYContentOffsetKey options:NSKeyValueObservingOptionNew context:nil];
@@ -110,13 +173,13 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
- 
     CGFloat offsetY = self.scrollView.contentOffset.y;
     self.frame = CGRectMake(0, offsetY, self.frame.size.width, -offsetY);
 }
 @end
 
 @implementation UIScrollView (ZYScaleHeader)
+
 static char ZYScaleHeaderKey = '\0';
 - (void)setZy_header:(ZYScaleHeader *)zy_header
 {
@@ -136,7 +199,8 @@ static char ZYScaleHeaderKey = '\0';
 
     [self.zy_header removeFromSuperview];
     objc_setAssociatedObject(self, &ZYScaleHeaderKey, zy_header, OBJC_ASSOCIATION_ASSIGN);
-    [self insertSubview:zy_header atIndex:0];
+    [self addSubview:zy_header];
+    [self scrollRectToVisible:CGRectZero animated:false];
     
 }
 

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ZYScaleHeader : UIView
+@property (nonatomic, strong) UIImage *image;
 
 /**
  通过图片名创建一个headerview
@@ -19,6 +20,10 @@
  */
 + (instancetype)headerWithImageNamed:(NSString *)imgName;
 + (instancetype)headerWithImage:(UIImage *)image;
+
+
++ (instancetype)headerWithImageNamed:(NSString *)imgName height:(CGFloat)height;
++ (instancetype)headerWithImage:(UIImage *)image height:(CGFloat)height;
 @end
 
 @interface UIScrollView (ZYScaleHeader)

@@ -21,6 +21,7 @@
     [super viewDidLoad];
     self.title = @"with nav";
     self.tableView.zy_header = [ZYScaleHeader headerWithImageNamed:@"backimage"];
+    NSLog(@"%@", NSStringFromUIEdgeInsets(self.tableView.contentInset));
 
 }
 
@@ -56,14 +57,18 @@
         case 4:
             cell.textLabel.text = @"set a new `zy_header`";
             break;
+            
         case 5:
-            cell.textLabel.text = @"present without navigation";
+            cell.textLabel.text = @"set a new `zy_header`";
             break;
         case 6:
+            cell.textLabel.text = @"present without navigation";
+            break;
+        case 7:
             cell.textLabel.text = @"dismissViewController";
             break;
             
-        case 7:
+        case 8:
             cell.textLabel.text = @"popViewController";
             break;
             default:break;
@@ -98,10 +103,10 @@
         {
             ScrollViewController *scrollV = [ScrollViewController new];
             scrollV.title = cell.textLabel.text;
-            ZYScaleHeader *header = [ZYScaleHeader headerWithImageNamed:@"psb-10"];
+            ZYScaleHeader *header = [ZYScaleHeader headerWithImageNamed:@"psb-10" height:250];
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setImage:[UIImage imageNamed:@"690"] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(header.frame.size.width * 0.5 - 50, header.frame.size.height - 150, 100, 100);
+            btn.frame = CGRectMake(header.frame.size.width * 0.5 - 25, header.frame.size.height - 70, 50, 50);
             [btn addTarget:scrollV action:@selector(btnclick) forControlEvents:UIControlEventTouchUpInside];
             [header addSubview:btn];
             
@@ -111,7 +116,7 @@
             [label setFont:[UIFont systemFontOfSize:15]];
             [label sizeToFit];
             
-            label.frame = CGRectMake((header.frame.size.width - label.frame.size.width) * 0.5, CGRectGetMaxY(btn.frame) + 5, label.frame.size.width, label.frame.size.height);
+            label.frame = CGRectMake((header.frame.size.width - label.frame.size.width) * 0.5, CGRectGetMaxY(btn.frame), label.frame.size.width, label.frame.size.height);
             [header addSubview:label];
             scrollV.scrollView.zy_header = header;
             [self.navigationController pushViewController:scrollV animated:true];
@@ -131,13 +136,17 @@
         case 4:
             tableView.zy_header = [ZYScaleHeader headerWithImageNamed:@"12312"];
             break;
+            
         case 5:
-            [self presentViewController:[ViewController new] animated:true completion:nil];
+            tableView.zy_header.image = [UIImage imageNamed:@"12312"];
             break;
         case 6:
-            [self dismissViewControllerAnimated:true completion:nil];
+            [self presentViewController:[ViewController new] animated:true completion:nil];
             break;
         case 7:
+            [self dismissViewControllerAnimated:true completion:nil];
+            break;
+        case 8:
             [self.navigationController popViewControllerAnimated:true];
         default:break;
     }

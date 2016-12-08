@@ -14,6 +14,11 @@
 
 @implementation ScrollViewController
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+     NSLog(@"%@", NSStringFromUIEdgeInsets(self.scrollView.contentInset));
+}
 
 - (UIScrollView *)scrollView
 {
