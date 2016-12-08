@@ -10,5 +10,4 @@
 
 @interface ScrollViewController : UIViewController
 @property (weak, nonatomic) UIScrollView *scrollView;
-- (void)btnclick;
 @end

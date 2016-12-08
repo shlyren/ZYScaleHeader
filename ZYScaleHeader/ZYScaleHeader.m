@@ -1,6 +1,6 @@
 //
 //  ZYScaleHeader.m
-//  ZYScaleHeaderDemo
+//  https://github.com/shlyren/ZYScaleHeader
 //
 //  Created by JiaQi on 2016/12/6.
 //  Copyright © 2016年 任玉祥. All rights reserved.
@@ -25,16 +25,21 @@
 }
 @end
 
-/** 此类用于区别与内部缩放的imageview */
+#pragma mark - ZYImageView
+#pragma mark 用于区别与内部缩放的imageview
 @interface ZYImageView : UIImageView
 @end
 @implementation ZYImageView
 @end
 
+#pragma mark - const
 NSString *const ZYContentOffsetKey = @"contentOffset";
 
+#pragma mark - ZYScaleHeader
 @interface ZYScaleHeader ()
+/** imageView */
 @property (nonatomic, weak) ZYImageView *imageView;
+/** 父控件 */
 @property (nonatomic, weak) UIScrollView *scrollView;
 @end
 
@@ -56,11 +61,6 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 }
 
 #pragma mark - super init Methods
-- (instancetype)init
-{
-    return [self initWithImage:nil height:0];
-}
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     return [self initWithImage:nil height:frame.size.height];
@@ -72,9 +72,9 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 }
 
 #pragma mark - public methods
-+ (instancetype)headerWithImageNamed:(NSString *)imgName
++ (instancetype)headerWithImageNamed:(NSString *)name
 {
-    return [self headerWithImage:[UIImage imageNamed:imgName]];
+    return [self headerWithImageNamed:name height:0];
 }
 
 + (instancetype)headerWithImage:(UIImage *)image
@@ -82,9 +82,11 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
     return [self headerWithImage:image height:0];
 }
 
-+ (instancetype)headerWithImageNamed:(NSString *)imgName height:(CGFloat)height
++ (instancetype)headerWithImageNamed:(NSString *)name height:(CGFloat)height
 {
-    return [self headerWithImage:[UIImage imageNamed:imgName] height:height];
+    UIImage *image = [UIImage imageNamed:name];
+    NSAssert1(image, @"load the nil image with name \"%@\"" , name);
+    return [self headerWithImage:image height:height];
 }
 
 + (instancetype)headerWithImage:(UIImage *)image height:(CGFloat)height
@@ -92,13 +94,12 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
     return [[self alloc] initWithImage:image height:height];
 }
 
-#pragma mark - main methods
+#pragma mark main methods
 - (instancetype)initWithImage:(UIImage *)image height:(CGFloat)height
 {
+    NSAssert(image, @"image can not be nil");
     if (self = [super initWithFrame:CGRectZero])
     {
-        if (!image) return self;
-        
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
         CGFloat imgH =  width * (image.size.height / image.size.width);
         self.frame = CGRectMake(0, 0, width, height ?: imgH);
@@ -136,6 +137,7 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
     [super addSubview:view];
     
     if ([view isKindOfClass:[ZYImageView class]]) return;
+    // 自动布局 保证用户自己添加的子控件距离父控件底部距离不变
     view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 }
 
@@ -151,6 +153,7 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
     
      if (!newSuperview) return;
     
+    // 记录父控件
     _scrollView = (UIScrollView *)newSuperview;
     
     _scrollView.alwaysBounceVertical = YES;

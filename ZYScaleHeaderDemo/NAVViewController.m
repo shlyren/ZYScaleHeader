@@ -104,15 +104,6 @@
         {
             TableViewController *tableV = [TableViewController new];
             tableV.title = cell.textLabel.text;
-            ZYScaleHeader *header = [ZYScaleHeader headerWithImageNamed:@"psb-12"];
-
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [btn setImage:[UIImage imageNamed:@"690"] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(header.frame.size.width * 0.5 - 25, header.frame.size.height - 80, 50, 50);
-            [btn addTarget:tableV action:@selector(btnclick) forControlEvents:UIControlEventTouchUpInside];
-            [header addSubview:btn];
-            
-            tableV.tableView.zy_header = header;
             [self presentViewController:tableV animated:true completion:nil];
         }
             break;
@@ -120,22 +111,6 @@
         {
             ScrollViewController *scrollV = [ScrollViewController new];
             scrollV.title = cell.textLabel.text;
-            ZYScaleHeader *header = [ZYScaleHeader headerWithImageNamed:@"psb-10"];
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [btn setImage:[UIImage imageNamed:@"690"] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(header.frame.size.width * 0.5 - 25, header.frame.size.height - 90, 50, 50);
-            [btn addTarget:scrollV action:@selector(btnclick) forControlEvents:UIControlEventTouchUpInside];
-            [header addSubview:btn];
-            
-            UILabel *label = [UILabel new];
-            [label setText:@"label"];
-            [label setTextColor:[UIColor whiteColor]];
-            [label setFont:[UIFont systemFontOfSize:13]];
-            [label sizeToFit];
-            
-            label.frame = CGRectMake((header.frame.size.width - label.frame.size.width) * 0.5, CGRectGetMaxY(btn.frame) + 5, label.frame.size.width, label.frame.size.height);
-            [header addSubview:label];
-            scrollV.scrollView.zy_header = header;
             [self presentViewController:scrollV animated:true completion:nil];
             
         }
