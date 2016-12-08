@@ -36,9 +36,9 @@
 @interface UIScrollView (ZYScaleHeader)
 /**
  设置scrollView的scaleHeader
- 这里有一个问题: tableView的时候, 如果先设置了tableHeaderView,然后设置ZYScaleHeader 
-              tableView默认滚动到tableHeaderView所能见到的那个点,
-              所以需要在tableHeaderView 之前先设置 ZYScaleHeader
+ 这里有一个问题: tableView的时候,如果先设置了tableHeaderView,再设置ZYScaleHeader,
+               tableView默认滚动到tableHeaderView所能见到的那个点(ZYScaleHeader是看不到的)
+               所以需要在tableHeaderView 之前先设置 ZYScaleHeader
  */
 @property (nonatomic, weak) ZYScaleHeader *zy_header;
 @end

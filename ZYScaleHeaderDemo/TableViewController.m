@@ -8,6 +8,7 @@
 
 #import "TableViewController.h"
 #import "ZYScaleHeader.h"
+#import "XibTableViewController.h"
 
 @interface TableViewController ()
 
@@ -40,7 +41,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -52,11 +53,14 @@
     }
     
     if (indexPath.row == 0) {
+        cell.textLabel.text = @"push xib header";
+    }else if (indexPath.row == 1)
+    {
         cell.textLabel.text = @"set a new header";
-    }else if(indexPath.row == 1) {
+    }else if(indexPath.row == 2) {
         cell.textLabel.text = @"change header image";
 
-    }else{
+    }else if(indexPath.row == 3) {
         cell.textLabel.text = @"change header height";
     }
     
@@ -67,6 +71,10 @@
 {
 
     if (indexPath.row == 0) {
+        XibTableViewController *vc = [XibTableViewController new];
+        vc.title = @"xib header";
+        [self.navigationController pushViewController:vc animated:true];
+    }else if (indexPath.row == 1) {
             ZYScaleHeader *header = [ZYScaleHeader headerWithImageNamed:@"backimage" height:200];
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setImage:[UIImage imageNamed:@"690"] forState:UIControlStateNormal];
@@ -74,9 +82,9 @@
             [btn addTarget:self action:@selector(btnclick) forControlEvents:UIControlEventTouchUpInside];
             [header addSubview:btn];
             tableView.zy_header = header;
-    }else if (indexPath.row == 1) {
+    }else if (indexPath.row == 2) {
         tableView.zy_header.image = [UIImage imageNamed:@"psb-10"];
-    }else{
+    }else  if (indexPath.row == 3) {
         tableView.zy_header.frame = CGRectMake(0, 0, tableView.frame.size.width, 150);
     }
 }

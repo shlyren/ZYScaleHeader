@@ -43,7 +43,12 @@
 - (UIScrollView *)scrollView
 {
     if (_scrollView == nil) {
-        UIScrollView *sc = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+        
+        UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tableViewHeader"]];
+        img.frame = CGRectMake(0, 64, self.view.frame.size.width, 150);
+        [self.view addSubview:img];
+        
+        UIScrollView *sc = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 214, self.view.frame.size.width, self.view.frame.size.height - 214)];
         sc.backgroundColor = [UIColor whiteColor];
         //        sc.contentSize = CGSizeMake(self.view.frame.size.width, 1000);
         [self.view addSubview:_scrollView = sc];

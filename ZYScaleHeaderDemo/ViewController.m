@@ -59,7 +59,7 @@
             break;
             
         case 5:
-            cell.textLabel.text = @"set a new `zy_header`";
+            cell.textLabel.text = @"set a new `zy_header` image";
             break;
         case 6:
             cell.textLabel.text = @"present without navigation";
@@ -116,7 +116,7 @@
             break;
             
         case 5:
-            tableView.zy_header.image = [UIImage imageNamed:@"12312"];
+            tableView.zy_header.image = [UIImage imageNamed:@"psb-10"];
             break;
         case 6:
             [self presentViewController:[ViewController new] animated:true completion:nil];

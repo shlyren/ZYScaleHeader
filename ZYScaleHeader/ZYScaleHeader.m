@@ -134,7 +134,6 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
     NSAssert(image, @"image can not be nil");
     if (self = [super initWithFrame:CGRectZero])
     {
-        
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
         CGFloat imgH =  width * (image.size.height / image.size.width);
         [self setZy_frame:CGRectMake(0, 0, width, height ?: imgH)];
@@ -156,7 +155,7 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 }
 
 
-#pragma mark - other
+#pragma mark - exchangeMethod
 - (void)setFrame:(CGRect)frame
 {
     CGFloat height = frame.size.height;
@@ -166,27 +165,37 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 - (void)setZy_frame:(CGRect)frame
 {
     [self setZy_frame:frame];
-    self.scrollView.contentInset = UIEdgeInsetsMake(frame.size.height, 0, 0, 0);
+    
+    UIEdgeInsets insets = self.scrollView.contentInset;
+    insets.top = frame.size.height;
+    self.scrollView.contentInset = insets;
 }
 
-
+#pragma mark - super mthods
 - (void)addSubview:(UIView *)view
 {
     [super addSubview:view];
-    
-    if ([view isKindOfClass:[ZYImageView class]]) return;
-    // 自动布局 保证用户自己添加的子控件距离父控件底部距离不变
     view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 }
 
 - (void)insertSubview:(UIView *)view atIndex:(NSInteger)index
 {
     [super insertSubview:view atIndex:index];
-    
     if ([view isKindOfClass:[ZYImageView class]]) return;
     view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 
 }
+- (void)insertSubview:(UIView *)view belowSubview:(UIView *)siblingSubview
+{
+    [super insertSubview:view belowSubview:siblingSubview];
+    view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+}
+- (void)insertSubview:(UIView *)view aboveSubview:(UIView *)siblingSubview
+{
+    [super insertSubview:view aboveSubview:siblingSubview];
+    view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+}
+
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
@@ -222,7 +231,8 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
-    if ([keyPath isEqualToString:ZYContentOffsetKey]) {
+    if ([keyPath isEqualToString:ZYContentOffsetKey])
+    {
         CGFloat offsetY = self.scrollView.contentOffset.y;
         [self setZy_frame: CGRectMake(0, offsetY, self.frame.size.width, -offsetY)];
     }
@@ -236,23 +246,28 @@ static char ZYScaleHeaderKey = '\0';
 {
     if (self.zy_header == zy_header) return;
     
+    // 移除旧的
+    [self.zy_header removeFromSuperview];
+    
+    // 添加新的
+    [self addSubview:zy_header];
+    // runtime
+    objc_setAssociatedObject(self, &ZYScaleHeaderKey, zy_header, OBJC_ASSOCIATION_ASSIGN);
+    
+    // 计算
     CGFloat height = zy_header.frame.size.height;
+    
     if ([self.viewController isKindOfClass:[UINavigationController class]])
     {
         UINavigationController *nav = (UINavigationController *)self.viewController;
         if (!nav.navigationBar.isHidden)
-        {
             height += nav.navigationBar.frame.size.height + (nav.prefersStatusBarHidden ?:20);
-        }
     }
     [zy_header setZy_frame:CGRectMake(0, -height, self.frame.size.width, height)];
-    self.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
-
-    [self.zy_header removeFromSuperview];
-    objc_setAssociatedObject(self, &ZYScaleHeaderKey, zy_header, OBJC_ASSOCIATION_ASSIGN);
-    [self addSubview:zy_header];
-    [self scrollRectToVisible:CGRectZero animated:false];
     
+    UIEdgeInsets insets = self.contentInset;
+    insets.top = height;
+    self.contentInset = insets;
 }
 
 - (ZYScaleHeader *)zy_header
