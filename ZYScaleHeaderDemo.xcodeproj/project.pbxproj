@@ -23,9 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		801896C21DF949270086D971 /* XibHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XibHeader.h; sourceTree = "<group>"; };
-		801896C31DF949270086D971 /* XibHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XibHeader.m; sourceTree = "<group>"; };
-		801896C51DF9493D0086D971 /* XibHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XibHeader.xib; sourceTree = "<group>"; };
+		801896C21DF949270086D971 /* XibHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XibHeader.h; path = ../XibHeader.h; sourceTree = "<group>"; };
+		801896C31DF949270086D971 /* XibHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XibHeader.m; path = ../XibHeader.m; sourceTree = "<group>"; };
+		801896C51DF9493D0086D971 /* XibHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XibHeader.xib; path = ../XibHeader.xib; sourceTree = "<group>"; };
 		801896C71DF94C170086D971 /* XibTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XibTableViewController.h; sourceTree = "<group>"; };
 		801896C81DF94C170086D971 /* XibTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XibTableViewController.m; sourceTree = "<group>"; };
 		808AB6601DF7A6BA007E0382 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
@@ -63,6 +63,9 @@
 		808AB66F1DF7F570007E0382 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				801896C21DF949270086D971 /* XibHeader.h */,
+				801896C31DF949270086D971 /* XibHeader.m */,
+				801896C51DF9493D0086D971 /* XibHeader.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -100,9 +103,6 @@
 				808AB66D1DF7EE09007E0382 /* TabBarController.m */,
 				801896C71DF94C170086D971 /* XibTableViewController.h */,
 				801896C81DF94C170086D971 /* XibTableViewController.m */,
-				801896C21DF949270086D971 /* XibHeader.h */,
-				801896C31DF949270086D971 /* XibHeader.m */,
-				801896C51DF9493D0086D971 /* XibHeader.xib */,
 				8095EA011DF6B6ED00E0F037 /* Supporting Files */,
 			);
 			path = ZYScaleHeaderDemo;

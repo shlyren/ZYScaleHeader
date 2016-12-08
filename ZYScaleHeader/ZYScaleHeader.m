@@ -9,8 +9,8 @@
 #import "ZYScaleHeader.h"
 #import <objc/runtime.h>
 
-@implementation NSObject (EXChangeMethods)
-
+#pragma mark - exchange methods
+@implementation NSObject (ZYExchangeMethods)
 + (void)zy_exchangeClassMethodWithoOrigSelector:(SEL)origSelector swizzleSelector:(SEL)swizzleSelector
 {
     Method origMethod = class_getClassMethod(self, origSelector);
@@ -19,24 +19,21 @@
     // 如何判断？添加原有方法，如果成功，表示原有方法不存在，失败，表示原有方法存在
     // 原有方法可能没有实现，所以这里添加方法实现，用自己方法实现
     // 这样做的好处：方法不存在，直接把自己方法的实现作为原有方法的实现，调用原有方法，就会来到当前方法的实现
-    BOOL isAdd = class_addMethod(self, origSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod));
-    if (!isAdd) {
+    if (!class_addMethod(self, origSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod)))
+    {
         method_exchangeImplementations(origMethod, swizzleMethod);
     }
 }
-
 + (void)zy_exchangeInstanceMethodWithoOrigSelector:(SEL)origSelector swizzleSelector:(SEL)swizzleSelector
 {
     Method origMethod = class_getInstanceMethod(self, origSelector);
     Method swizzleMethod = class_getInstanceMethod(self, swizzleSelector);
     
-    BOOL isAdd = class_addMethod(self, origSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod));
-    
-    if (!isAdd) {
+    if (!class_addMethod(self, origSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod)))
+    {
         method_exchangeImplementations(origMethod, swizzleMethod);
     }
 }
-
 @end
 
 #pragma mark - 获取当前view的控制
@@ -53,8 +50,7 @@
 }
 @end
 
-#pragma mark - ZYImageView
-#pragma mark 用于区别与内部缩放的imageview
+#pragma mark - ZYImageView 用于区别内部缩放的imageview
 @interface ZYImageView : UIImageView @end
 @implementation ZYImageView @end
 
@@ -119,7 +115,7 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 + (instancetype)headerWithImageNamed:(NSString *)name height:(CGFloat)height
 {
     UIImage *image = [UIImage imageNamed:name];
-    NSAssert1(image, @"load the nil image with name \"%@\"" , name);
+    NSAssert1(image, @"can not load the image with name \"%@\"" , name);
     return [self headerWithImage:image height:height];
 }
 
@@ -155,7 +151,7 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 }
 
 
-#pragma mark - exchangeMethod
+#pragma mark - exchangeMethod 处理内边距
 - (void)setFrame:(CGRect)frame
 {
     CGFloat height = frame.size.height;
@@ -171,7 +167,7 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
     self.scrollView.contentInset = insets;
 }
 
-#pragma mark - super mthods
+#pragma mark - super mthods 处理子控件的布局
 - (void)addSubview:(UIView *)view
 {
     [super addSubview:view];
@@ -197,6 +193,7 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 }
 
 
+#pragma mark -
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     [super willMoveToSuperview:newSuperview];
@@ -239,6 +236,7 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 }
 @end
 
+#pragma mark - UIScrollView (ZYScaleHeader)
 @implementation UIScrollView (ZYScaleHeader)
 
 static char ZYScaleHeaderKey = '\0';
