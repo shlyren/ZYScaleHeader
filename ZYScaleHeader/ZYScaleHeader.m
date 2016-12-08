@@ -8,11 +8,39 @@
 
 #import "ZYScaleHeader.h"
 #import <objc/runtime.h>
-#import "UIView+MJExtension.h"
-#import "UIScrollView+MJExtension.h"
+
+@implementation NSObject (EXChangeMethods)
+
++ (void)zy_exchangeClassMethodWithoOrigSelector:(SEL)origSelector swizzleSelector:(SEL)swizzleSelector
+{
+    Method origMethod = class_getClassMethod(self, origSelector);
+    Method swizzleMethod = class_getClassMethod(self, swizzleSelector);
+    // 注意：不能直接交换方法实现，需要判断原有方法是否存在,存在才能交换
+    // 如何判断？添加原有方法，如果成功，表示原有方法不存在，失败，表示原有方法存在
+    // 原有方法可能没有实现，所以这里添加方法实现，用自己方法实现
+    // 这样做的好处：方法不存在，直接把自己方法的实现作为原有方法的实现，调用原有方法，就会来到当前方法的实现
+    BOOL isAdd = class_addMethod(self, origSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod));
+    if (!isAdd) {
+        method_exchangeImplementations(origMethod, swizzleMethod);
+    }
+}
+
++ (void)zy_exchangeInstanceMethodWithoOrigSelector:(SEL)origSelector swizzleSelector:(SEL)swizzleSelector
+{
+    Method origMethod = class_getInstanceMethod(self, origSelector);
+    Method swizzleMethod = class_getInstanceMethod(self, swizzleSelector);
+    
+    BOOL isAdd = class_addMethod(self, origSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod));
+    
+    if (!isAdd) {
+        method_exchangeImplementations(origMethod, swizzleMethod);
+    }
+}
+
+@end
 
 #pragma mark - 获取当前view的控制
-@implementation UIView (Extend)
+@implementation UIView (ZYExtend)
 - (UIViewController *)viewController
 {
     for (UIView *next = [self superview]; next; next = next.superview)
@@ -27,13 +55,12 @@
 
 #pragma mark - ZYImageView
 #pragma mark 用于区别与内部缩放的imageview
-@interface ZYImageView : UIImageView
-@end
-@implementation ZYImageView
-@end
+@interface ZYImageView : UIImageView @end
+@implementation ZYImageView @end
 
 #pragma mark - const
 NSString *const ZYContentOffsetKey = @"contentOffset";
+//NSString *const ZYContentInsetKey = @"contentInset";
 
 #pragma mark - ZYScaleHeader
 @interface ZYScaleHeader ()
@@ -41,9 +68,15 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 @property (nonatomic, weak) ZYImageView *imageView;
 /** 父控件 */
 @property (nonatomic, weak) UIScrollView *scrollView;
+
 @end
 
 @implementation ZYScaleHeader
+
++ (void)load
+{
+    [self zy_exchangeInstanceMethodWithoOrigSelector:@selector(setFrame:) swizzleSelector:@selector(setZy_frame:)];
+}
 
 #pragma mark - lazy load
 - (ZYImageView *)imageView
@@ -52,6 +85,7 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
     {
         ZYImageView *imageV = [ZYImageView new];
         imageV.frame = self.bounds;
+        imageV.clipsToBounds = true;
         imageV.contentMode = UIViewContentModeScaleAspectFill;
         imageV.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         [self insertSubview:_imageView = imageV atIndex:0];
@@ -94,16 +128,16 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
     return [[self alloc] initWithImage:image height:height];
 }
 
-#pragma mark main methods
+#pragma mark main method
 - (instancetype)initWithImage:(UIImage *)image height:(CGFloat)height
 {
     NSAssert(image, @"image can not be nil");
     if (self = [super initWithFrame:CGRectZero])
     {
+        
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
         CGFloat imgH =  width * (image.size.height / image.size.width);
-        self.frame = CGRectMake(0, 0, width, height ?: imgH);
-        self.clipsToBounds = true;
+        [self setZy_frame:CGRectMake(0, 0, width, height ?: imgH)];
         self.imageView.image = image;
     }
     
@@ -123,14 +157,18 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 
 
 #pragma mark - other
-/**
- 这里该不该重写?
- */
 - (void)setFrame:(CGRect)frame
 {
     CGFloat height = frame.size.height;
     [super setFrame:CGRectMake(0, -height, frame.size.width, height)];
 }
+
+- (void)setZy_frame:(CGRect)frame
+{
+    [self setZy_frame:frame];
+    self.scrollView.contentInset = UIEdgeInsetsMake(frame.size.height, 0, 0, 0);
+}
+
 
 - (void)addSubview:(UIView *)view
 {
@@ -139,6 +177,15 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
     if ([view isKindOfClass:[ZYImageView class]]) return;
     // 自动布局 保证用户自己添加的子控件距离父控件底部距离不变
     view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+}
+
+- (void)insertSubview:(UIView *)view atIndex:(NSInteger)index
+{
+    [super insertSubview:view atIndex:index];
+    
+    if ([view isKindOfClass:[ZYImageView class]]) return;
+    view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
@@ -157,7 +204,6 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
     _scrollView = (UIScrollView *)newSuperview;
     
     _scrollView.alwaysBounceVertical = YES;
-    
     // 添加监听
     [self addObservers];
 }
@@ -176,8 +222,10 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
-    CGFloat offsetY = self.scrollView.contentOffset.y;
-    self.frame = CGRectMake(0, offsetY, self.frame.size.width, -offsetY);
+    if ([keyPath isEqualToString:ZYContentOffsetKey]) {
+        CGFloat offsetY = self.scrollView.contentOffset.y;
+        [self setZy_frame: CGRectMake(0, offsetY, self.frame.size.width, -offsetY)];
+    }
 }
 @end
 
@@ -197,7 +245,7 @@ static char ZYScaleHeaderKey = '\0';
             height += nav.navigationBar.frame.size.height + (nav.prefersStatusBarHidden ?:20);
         }
     }
-    zy_header.frame = CGRectMake(0, -height, self.frame.size.width, height);
+    [zy_header setZy_frame:CGRectMake(0, -height, self.frame.size.width, height)];
     self.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
 
     [self.zy_header removeFromSuperview];

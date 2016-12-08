@@ -17,8 +17,6 @@
 		8095EA0E1DF6B6ED00E0F037 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8095EA0D1DF6B6ED00E0F037 /* Assets.xcassets */; };
 		8095EA111DF6B6ED00E0F037 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8095EA0F1DF6B6ED00E0F037 /* LaunchScreen.storyboard */; };
 		8095EA1E1DF6B80A00E0F037 /* ZYScaleHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8095EA1D1DF6B80A00E0F037 /* ZYScaleHeader.m */; };
-		80C674151DF8E89A0099862B /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C674121DF8E89A0099862B /* UIScrollView+MJExtension.m */; };
-		80C674161DF8E89A0099862B /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C674141DF8E89A0099862B /* UIView+MJExtension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,10 +39,6 @@
 		8095EA121DF6B6ED00E0F037 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8095EA1C1DF6B80A00E0F037 /* ZYScaleHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYScaleHeader.h; sourceTree = "<group>"; };
 		8095EA1D1DF6B80A00E0F037 /* ZYScaleHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYScaleHeader.m; sourceTree = "<group>"; };
-		80C674111DF8E89A0099862B /* UIScrollView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+MJExtension.h"; sourceTree = "<group>"; };
-		80C674121DF8E89A0099862B /* UIScrollView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJExtension.m"; sourceTree = "<group>"; };
-		80C674131DF8E89A0099862B /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
-		80C674141DF8E89A0099862B /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,10 +111,6 @@
 		8095EA181DF6B79F00E0F037 /* ZYScaleHeader */ = {
 			isa = PBXGroup;
 			children = (
-				80C674111DF8E89A0099862B /* UIScrollView+MJExtension.h */,
-				80C674121DF8E89A0099862B /* UIScrollView+MJExtension.m */,
-				80C674131DF8E89A0099862B /* UIView+MJExtension.h */,
-				80C674141DF8E89A0099862B /* UIView+MJExtension.m */,
 				8095EA1C1DF6B80A00E0F037 /* ZYScaleHeader.h */,
 				8095EA1D1DF6B80A00E0F037 /* ZYScaleHeader.m */,
 			);
@@ -198,8 +188,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80C674151DF8E89A0099862B /* UIScrollView+MJExtension.m in Sources */,
-				80C674161DF8E89A0099862B /* UIView+MJExtension.m in Sources */,
 				8095EA091DF6B6ED00E0F037 /* ViewController.m in Sources */,
 				8095EA061DF6B6ED00E0F037 /* AppDelegate.m in Sources */,
 				808AB66B1DF7E9E5007E0382 /* NAVViewController.m in Sources */,

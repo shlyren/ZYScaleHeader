@@ -32,8 +32,8 @@
 + (instancetype)headerWithImage:(UIImage *)image height:(CGFloat)height;
 @end
 
+#pragma mark - UIScrollView Category
 @interface UIScrollView (ZYScaleHeader)
-
 /**
  设置scrollView的scaleHeader
  这里有一个问题: tableView的时候, 如果先设置了tableHeaderView,然后设置ZYScaleHeader 

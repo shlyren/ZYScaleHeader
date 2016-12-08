@@ -40,7 +40,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -51,11 +51,13 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
     
-    if (indexPath.row) {
+    if (indexPath.row == 0) {
         cell.textLabel.text = @"set a new header";
-    }else {
+    }else if(indexPath.row == 1) {
         cell.textLabel.text = @"change header image";
 
+    }else{
+        cell.textLabel.text = @"change header height";
     }
     
     return cell;
@@ -64,7 +66,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    if (indexPath.row) {
+    if (indexPath.row == 0) {
             ZYScaleHeader *header = [ZYScaleHeader headerWithImageNamed:@"backimage" height:200];
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setImage:[UIImage imageNamed:@"690"] forState:UIControlStateNormal];
@@ -72,8 +74,10 @@
             [btn addTarget:self action:@selector(btnclick) forControlEvents:UIControlEventTouchUpInside];
             [header addSubview:btn];
             tableView.zy_header = header;
-    }else{
+    }else if (indexPath.row == 1) {
         tableView.zy_header.image = [UIImage imageNamed:@"psb-10"];
+    }else{
+        tableView.zy_header.frame = CGRectMake(0, 0, tableView.frame.size.width, 150);
     }
 }
 
