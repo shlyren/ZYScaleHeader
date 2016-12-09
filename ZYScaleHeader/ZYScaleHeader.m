@@ -66,11 +66,11 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 
 @implementation ZYScaleHeader
 
-#pragma mark -
+#pragma mark - 
 #define ZYImageAssert \
 if (!image) \
 { \
-    NSLog(@"*** error: %s: image can not be nil", __func__); \
+    NSLog(@"*** error: %s: image is nil", __func__); \
     return nil; \
 }
 
@@ -78,7 +78,7 @@ if (!image) \
 UIImage *image = [UIImage imageNamed:name]; \
 if (!image) \
 { \
-    NSLog(@"*** error: %s: can not load the image name \"%@\"" , __func__, name); \
+    NSLog(@"*** error: %s: load the nil image with name \"%@\"" , __func__, name); \
     return nil; \
 }
 

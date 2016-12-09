@@ -112,11 +112,11 @@
             break;
             
         case 4:
-            tableView.zy_header = [ZYScaleHeader headerWithImageNamed:@"1312"];
+            tableView.zy_header = [ZYScaleHeader headerWithImageNamed:@"12312"];
             break;
             
         case 5:
-            tableView.zy_header.image = [UIImage imageNamed:@"ps-1"];
+            tableView.zy_header.image = [UIImage imageNamed:@"psb-10"];
             break;
         case 6:
             [self presentViewController:[ViewController new] animated:true completion:nil];
