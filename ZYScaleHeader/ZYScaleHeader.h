@@ -15,20 +15,18 @@
  创建一个headerview
  默认宽度为屏幕的宽度, 高度为 宽度 * image高度 / image宽度
 
- @param name imgName
+ @param image image
  @return ZYScaleHeader 对象
  */
-+ (instancetype)headerWithImageNamed:(NSString *)name;
 + (instancetype)headerWithImage:(UIImage *)image;
 
 /**
  创建一个自定义高度的headerview
 
- @param name imgName
+ @param image image
  @param height 如果为0, 高度为 宽度 * image高度 / image宽度
  @return ZYScaleHeader 对象
  */
-+ (instancetype)headerWithImageNamed:(NSString *)name height:(CGFloat)height;
 + (instancetype)headerWithImage:(UIImage *)image height:(CGFloat)height;
 @end
 

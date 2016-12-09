@@ -20,7 +20,7 @@
     [super viewDidLoad];
     
     
-    ZYScaleHeader *header = [ZYScaleHeader headerWithImageNamed:@"psb-10" height:250];
+    ZYScaleHeader *header = [ZYScaleHeader headerWithImage:[UIImage imageNamed:@"psb-10"] height:250];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setImage:[UIImage imageNamed:@"690"] forState:UIControlStateNormal];
     btn.frame = CGRectMake(header.frame.size.width * 0.5 - 25, header.frame.size.height - 70, 50, 50);

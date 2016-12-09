@@ -44,7 +44,7 @@
 {
     [super viewDidLoad];
     
-    self.tableView.zy_header = [ZYScaleHeader headerWithImageNamed:@"backimage"];
+    self.tableView.zy_header = [ZYScaleHeader headerWithImage:[UIImage imageNamed:@"backimage"]];
     NSLog(@"%@", NSStringFromUIEdgeInsets(self.tableView.contentInset));
 }
 
@@ -121,7 +121,7 @@
             break;
             
         case 3:
-            tableView.zy_header = [ZYScaleHeader headerWithImageNamed:@"12312"];
+            tableView.zy_header = [ZYScaleHeader headerWithImage:[UIImage imageNamed:@"12312"]];
             break;
         case 4:
         {

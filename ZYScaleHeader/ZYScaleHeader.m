@@ -66,19 +66,11 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 
 @implementation ZYScaleHeader
 
-#pragma mark - 
+#pragma mark -
 #define ZYImageAssert \
 if (!image) \
 { \
     NSLog(@"*** error: %s: image is nil", __func__); \
-    return nil; \
-}
-
-#define ZYImgNameAssert \
-UIImage *image = [UIImage imageNamed:name]; \
-if (!image) \
-{ \
-    NSLog(@"*** error: %s: load the nil image with name \"%@\"" , __func__, name); \
     return nil; \
 }
 
@@ -114,22 +106,10 @@ if (!image) \
 }
 
 #pragma mark - public methods
-+ (instancetype)headerWithImageNamed:(NSString *)name
-{
-    ZYImgNameAssert
-    return [self headerWithImageNamed:name height:0];
-}
-
 + (instancetype)headerWithImage:(UIImage *)image
 {
     ZYImageAssert
     return [self headerWithImage:image height:0];
-}
-
-+ (instancetype)headerWithImageNamed:(NSString *)name height:(CGFloat)height
-{
-    ZYImgNameAssert
-    return [self headerWithImage:[UIImage imageNamed:name] height:height];
 }
 
 + (instancetype)headerWithImage:(UIImage *)image height:(CGFloat)height
@@ -141,7 +121,6 @@ if (!image) \
 #pragma mark main method
 - (instancetype)initWithImage:(UIImage *)image height:(CGFloat)height
 {
-//    NSAssert(image, @"image can not be nil");
     ZYImageAssert
     if (self = [super initWithFrame:CGRectZero])
     {
@@ -220,16 +199,13 @@ if (!image) \
     // 如果不是UIScrollView，不做任何事情
     if (newSuperview && ![newSuperview isKindOfClass:[UIScrollView class]]) return;
     
-    // 移除监听
     [self removeObservers];
     
      if (!newSuperview) return;
     
     // 记录父控件
     _scrollView = (UIScrollView *)newSuperview;
-    
     _scrollView.alwaysBounceVertical = YES;
-    // 添加监听
     [self addObservers];
 }
 
@@ -263,17 +239,11 @@ static char ZYScaleHeaderKey = '\0';
 {
     if (self.zy_header == zy_header) return;
     
-    // 移除旧的
     [self.zy_header removeFromSuperview];
-    
-    // 添加新的
     [self addSubview:zy_header];
-    // runtime
     objc_setAssociatedObject(self, &ZYScaleHeaderKey, zy_header, OBJC_ASSOCIATION_ASSIGN);
     
-    // 计算
     CGFloat height = zy_header.frame.size.height;
-    
     if ([self.viewController isKindOfClass:[UINavigationController class]])
     {
         UINavigationController *nav = (UINavigationController *)self.viewController;
