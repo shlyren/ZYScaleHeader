@@ -11,28 +11,25 @@
 
 #pragma mark - exchange methods
 @implementation NSObject (ZYExchangeMethods)
-+ (void)zy_exchangeClassMethodWithoOrigSelector:(SEL)origSelector swizzleSelector:(SEL)swizzleSelector
++ (void)zy_exchangeClassMethod1:(SEL)sel1 method2:(SEL)sel2
 {
-    Method origMethod = class_getClassMethod(self, origSelector);
-    Method swizzleMethod = class_getClassMethod(self, swizzleSelector);
+    Method method1 = class_getClassMethod(self, sel1);
+    Method method2 = class_getClassMethod(self, sel2);
     // 注意：不能直接交换方法实现，需要判断原有方法是否存在,存在才能交换
     // 如何判断？添加原有方法，如果成功，表示原有方法不存在，失败，表示原有方法存在
     // 原有方法可能没有实现，所以这里添加方法实现，用自己方法实现
     // 这样做的好处：方法不存在，直接把自己方法的实现作为原有方法的实现，调用原有方法，就会来到当前方法的实现
-    if (!class_addMethod(self, origSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod)))
-    {
-        method_exchangeImplementations(origMethod, swizzleMethod);
-    }
+    if (!class_addMethod(self, sel1, method_getImplementation(method2), method_getTypeEncoding(method2)))
+        method_exchangeImplementations(method1, method2);
 }
-+ (void)zy_exchangeInstanceMethodWithoOrigSelector:(SEL)origSelector swizzleSelector:(SEL)swizzleSelector
+
++ (void)zy_exchangeInstanceMethod1:(SEL)sel1 method2:(SEL)sel2
 {
-    Method origMethod = class_getInstanceMethod(self, origSelector);
-    Method swizzleMethod = class_getInstanceMethod(self, swizzleSelector);
-    
-    if (!class_addMethod(self, origSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod)))
-    {
-        method_exchangeImplementations(origMethod, swizzleMethod);
-    }
+    Method method1 = class_getInstanceMethod(self, sel1);
+    Method method2 = class_getInstanceMethod(self, sel2);
+    if (!class_addMethod(self, sel1, method_getImplementation(method2), method_getTypeEncoding(method2)))
+        method_exchangeImplementations(method1, method2);
+
 }
 @end
 
@@ -50,7 +47,7 @@
 }
 @end
 
-#pragma mark - ZYImageView 用于区别内部缩放的imageview
+#pragma mark - ZYImageView 用于区别内部缩放的imageView
 @interface ZYImageView : UIImageView @end
 @implementation ZYImageView @end
 
@@ -69,9 +66,25 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 
 @implementation ZYScaleHeader
 
+#pragma mark -
+#define ZYImageAssert \
+if (!image) \
+{ \
+    NSLog(@"*** error: %s: image can not be nil", __func__); \
+    return nil; \
+}
+
+#define ZYImgNameAssert \
+UIImage *image = [UIImage imageNamed:name]; \
+if (!image) \
+{ \
+    NSLog(@"*** error: %s: can not load the image name \"%@\"" , __func__, name); \
+    return nil; \
+}
+
 + (void)load
 {
-    [self zy_exchangeInstanceMethodWithoOrigSelector:@selector(setFrame:) swizzleSelector:@selector(setZy_frame:)];
+    [self zy_exchangeInstanceMethod1:@selector(setFrame:) method2:@selector(setZy_frame:)];
 }
 
 #pragma mark - lazy load
@@ -86,7 +99,6 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
         imageV.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         [self insertSubview:_imageView = imageV atIndex:0];
     }
-    
     return _imageView;
 }
 
@@ -104,30 +116,33 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 #pragma mark - public methods
 + (instancetype)headerWithImageNamed:(NSString *)name
 {
+    ZYImgNameAssert
     return [self headerWithImageNamed:name height:0];
 }
 
 + (instancetype)headerWithImage:(UIImage *)image
 {
+    ZYImageAssert
     return [self headerWithImage:image height:0];
 }
 
 + (instancetype)headerWithImageNamed:(NSString *)name height:(CGFloat)height
 {
-    UIImage *image = [UIImage imageNamed:name];
-    NSAssert1(image, @"can not load the image with name \"%@\"" , name);
-    return [self headerWithImage:image height:height];
+    ZYImgNameAssert
+    return [self headerWithImage:[UIImage imageNamed:name] height:height];
 }
 
 + (instancetype)headerWithImage:(UIImage *)image height:(CGFloat)height
 {
+    ZYImageAssert
     return [[self alloc] initWithImage:image height:height];
 }
 
 #pragma mark main method
 - (instancetype)initWithImage:(UIImage *)image height:(CGFloat)height
 {
-    NSAssert(image, @"image can not be nil");
+//    NSAssert(image, @"image can not be nil");
+    ZYImageAssert
     if (self = [super initWithFrame:CGRectZero])
     {
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
@@ -142,6 +157,11 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 #pragma mark - public variable
 - (void)setImage:(UIImage *)image
 {
+    if (!image)
+    {
+        NSLog(@"*** error: %s: image can not be nil", __func__);
+        return;
+    }
     self.imageView.image = image;
 }
 
@@ -149,7 +169,6 @@ NSString *const ZYContentOffsetKey = @"contentOffset";
 {
     return self.imageView.image;
 }
-
 
 #pragma mark - exchangeMethod 处理内边距
 - (void)setFrame:(CGRect)frame
