@@ -21,7 +21,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    ZYScaleHeader *header = [ZYScaleHeader headerWithImageNamed:@"psb-12"];
+    ZYScaleHeader *header = [ZYScaleHeader headerWithImage:[UIImage imageNamed:@"psb-12"]];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setImage:[UIImage imageNamed:@"690"] forState:UIControlStateNormal];
     btn.frame = CGRectMake(header.frame.size.width * 0.5 - 40, header.frame.size.height - 100, 80, 80);
@@ -75,7 +75,7 @@
         vc.title = @"xib header";
         [self.navigationController pushViewController:vc animated:true];
     }else if (indexPath.row == 1) {
-            ZYScaleHeader *header = [ZYScaleHeader headerWithImageNamed:@"backimage" height:200];
+            ZYScaleHeader *header = [ZYScaleHeader headerWithImage:[UIImage imageNamed:@"backimage"] height:200];
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setImage:[UIImage imageNamed:@"690"] forState:UIControlStateNormal];
             btn.frame = CGRectMake(header.frame.size.width * 0.5 - 40, header.frame.size.height - 100, 80, 80);

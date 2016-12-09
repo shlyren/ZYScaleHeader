@@ -19,7 +19,7 @@
 {
     [super viewDidLoad];
     
-    ZYScaleHeader *ScaleHeader = [ZYScaleHeader headerWithImageNamed:@"backimage"];
+    ZYScaleHeader *ScaleHeader = [ZYScaleHeader headerWithImage:[UIImage imageNamed:@"backimage"]];
     XibHeader *header = [[XibHeader alloc] initWithFrame:ScaleHeader.bounds];
     [ScaleHeader addSubview:header];
     
