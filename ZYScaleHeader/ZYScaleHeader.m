@@ -161,22 +161,31 @@ if (!image) \
 - (void)setFrame:(CGRect)frame
 {
     CGFloat height = frame.size.height;
-    [super setFrame:CGRectMake(0, -height, frame.size.width, height)];
+    [super setFrame: CGRectMake(0, -height, frame.size.width, height)];
 }
 
 - (void)setZy_frame:(CGRect)frame
 {
     [self setZy_frame:frame];
-    
+
     UIEdgeInsets insets = self.scrollView.contentInset;
     insets.top = frame.size.height;
     self.scrollView.contentInset = insets;
+    // 增加滚动区域top
+//    self.scrollView.mj_insetT = top;
+//    // 设置滚动位置
+//    CGPoint offset = self.scrollView.contentOffset;
+//    offset.y = -top;
+//    [self.scrollView setContentOffset:offset animated:NO];
+//    CGPoint point = self.scrollView.contentOffset;
+//    point.y = -frame.size.height;
+//    self.scrollView.contentOffset = point;
 }
 
 #pragma mark - super mthods 处理子控件的布局
 - (void)addSubview:(UIView *)view
 {
-    [super addSubview:view];
+    [super addSubview: view];
     view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 }
 
@@ -221,7 +230,7 @@ if (!image) \
 #pragma mark - KVO
 - (void)addObservers
 {
-    [self.scrollView addObserver:self forKeyPath:ZYContentOffsetKey options:NSKeyValueObservingOptionNew context:nil];
+    [self.scrollView addObserver:self forKeyPath:ZYContentOffsetKey options: NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)removeObservers
@@ -231,10 +240,15 @@ if (!image) \
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
-    if ([keyPath isEqualToString:ZYContentOffsetKey])
+    if ([keyPath isEqualToString: ZYContentOffsetKey])
     {
         CGFloat offsetY = self.scrollView.contentOffset.y;
         [self setZy_frame: CGRectMake(0, offsetY, self.frame.size.width, -offsetY)];
+        NSLog(@"offsetY %.1f", offsetY);
+        
+//        CGPoint point = self.scrollView.contentOffset;
+//        point.y = offsetY;
+//        [self.scrollView setContentOffset:point animated:false];
     }
 }
 @end
@@ -248,7 +262,7 @@ static char ZYScaleHeaderKey = '\0';
     if (self.zy_header == zy_header) return;
     
     [self.zy_header removeFromSuperview];
-    [self addSubview:zy_header];
+    [self addSubview: zy_header];
     objc_setAssociatedObject(self, &ZYScaleHeaderKey, zy_header, OBJC_ASSOCIATION_ASSIGN);
     
     CGFloat height = zy_header.frame.size.height;
@@ -258,11 +272,21 @@ static char ZYScaleHeaderKey = '\0';
         if (!nav.navigationBar.isHidden)
             height += nav.navigationBar.frame.size.height + (nav.prefersStatusBarHidden ?:20);
     }
-    [zy_header setZy_frame:CGRectMake(0, -height, self.frame.size.width, height)];
+    [zy_header setZy_frame: CGRectMake(0, height, self.frame.size.width, height)];
     
     UIEdgeInsets insets = self.contentInset;
     insets.top = height;
     self.contentInset = insets;
+
+    if ([self isKindOfClass:[UITableView class]]) {
+        UITableView *tableView = (UITableView *)self;
+        
+    }
+    
+//    CGPoint point = self.contentOffset;
+//    point.y = -height;
+////    self.contentOffset = point;
+//    [self setContentOffset:point animated:false];
 }
 
 - (ZYScaleHeader *)zy_header

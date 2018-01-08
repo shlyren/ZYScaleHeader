@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		801896C41DF949270086D971 /* XibHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 801896C31DF949270086D971 /* XibHeader.m */; };
-		801896C61DF9493D0086D971 /* XibHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 801896C51DF9493D0086D971 /* XibHeader.xib */; };
+		5906E88520031B98001DCC61 /* XibHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 5906E88320031B98001DCC61 /* XibHeader.m */; };
+		5906E88620031B98001DCC61 /* XibHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5906E88420031B98001DCC61 /* XibHeader.xib */; };
 		801896C91DF94C170086D971 /* XibTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 801896C81DF94C170086D971 /* XibTableViewController.m */; };
 		808AB6621DF7A6BA007E0382 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808AB6611DF7A6BA007E0382 /* TableViewController.m */; };
 		808AB6681DF7B2E0007E0382 /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808AB6671DF7B2E0007E0382 /* ScrollViewController.m */; };
@@ -23,9 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		801896C21DF949270086D971 /* XibHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XibHeader.h; path = ../XibHeader.h; sourceTree = "<group>"; };
-		801896C31DF949270086D971 /* XibHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XibHeader.m; path = ../XibHeader.m; sourceTree = "<group>"; };
-		801896C51DF9493D0086D971 /* XibHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XibHeader.xib; path = ../XibHeader.xib; sourceTree = "<group>"; };
+		5906E88220031B98001DCC61 /* XibHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XibHeader.h; sourceTree = "<group>"; };
+		5906E88320031B98001DCC61 /* XibHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XibHeader.m; sourceTree = "<group>"; };
+		5906E88420031B98001DCC61 /* XibHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XibHeader.xib; sourceTree = "<group>"; };
 		801896C71DF94C170086D971 /* XibTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XibTableViewController.h; sourceTree = "<group>"; };
 		801896C81DF94C170086D971 /* XibTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XibTableViewController.m; sourceTree = "<group>"; };
 		808AB6601DF7A6BA007E0382 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
@@ -60,12 +60,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		808AB66F1DF7F570007E0382 /* View */ = {
+		5906E88120031B98001DCC61 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				801896C21DF949270086D971 /* XibHeader.h */,
-				801896C31DF949270086D971 /* XibHeader.m */,
-				801896C51DF9493D0086D971 /* XibHeader.xib */,
+				5906E88220031B98001DCC61 /* XibHeader.h */,
+				5906E88320031B98001DCC61 /* XibHeader.m */,
+				5906E88420031B98001DCC61 /* XibHeader.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -90,7 +90,7 @@
 		8095EA001DF6B6ED00E0F037 /* ZYScaleHeaderDemo */ = {
 			isa = PBXGroup;
 			children = (
-				808AB66F1DF7F570007E0382 /* View */,
+				5906E88120031B98001DCC61 /* View */,
 				8095EA071DF6B6ED00E0F037 /* ViewController.h */,
 				8095EA081DF6B6ED00E0F037 /* ViewController.m */,
 				808AB6691DF7E9E5007E0382 /* NAVViewController.h */,
@@ -156,12 +156,12 @@
 		8095E9F61DF6B6ED00E0F037 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "任玉祥";
 				TargetAttributes = {
 					8095E9FD1DF6B6ED00E0F037 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = XJPMR8FRF3;
+						DevelopmentTeam = PW83CUTGKC;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -190,8 +190,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8095EA111DF6B6ED00E0F037 /* LaunchScreen.storyboard in Resources */,
-				801896C61DF9493D0086D971 /* XibHeader.xib in Resources */,
 				8095EA0E1DF6B6ED00E0F037 /* Assets.xcassets in Resources */,
+				5906E88620031B98001DCC61 /* XibHeader.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,11 +206,11 @@
 				8095EA061DF6B6ED00E0F037 /* AppDelegate.m in Sources */,
 				808AB66B1DF7E9E5007E0382 /* NAVViewController.m in Sources */,
 				8095EA1E1DF6B80A00E0F037 /* ZYScaleHeader.m in Sources */,
+				5906E88520031B98001DCC61 /* XibHeader.m in Sources */,
 				808AB6681DF7B2E0007E0382 /* ScrollViewController.m in Sources */,
 				808AB66E1DF7EE09007E0382 /* TabBarController.m in Sources */,
 				808AB6621DF7A6BA007E0382 /* TableViewController.m in Sources */,
 				801896C91DF94C170086D971 /* XibTableViewController.m in Sources */,
-				801896C41DF949270086D971 /* XibHeader.m in Sources */,
 				8095EA031DF6B6ED00E0F037 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,7 +238,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -246,7 +248,12 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -286,7 +293,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -294,7 +303,12 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -323,7 +337,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = XJPMR8FRF3;
+				DEVELOPMENT_TEAM = PW83CUTGKC;
 				INFOPLIST_FILE = ZYScaleHeaderDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ren.yuxiang.ZYScaleHeaderDemo;
@@ -335,7 +349,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = XJPMR8FRF3;
+				DEVELOPMENT_TEAM = PW83CUTGKC;
 				INFOPLIST_FILE = ZYScaleHeaderDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ren.yuxiang.ZYScaleHeaderDemo;

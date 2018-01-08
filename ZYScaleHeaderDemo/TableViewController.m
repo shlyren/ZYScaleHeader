@@ -25,23 +25,26 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setImage:[UIImage imageNamed:@"690"] forState:UIControlStateNormal];
     btn.frame = CGRectMake(header.frame.size.width * 0.5 - 40, header.frame.size.height - 100, 80, 80);
-    [btn addTarget:self action:@selector(btnclick) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(btnclick) forControlEvents: UIControlEventTouchUpInside];
     [header addSubview:btn];
     self.tableView.zy_header = header;
     
     NSLog(@"%@", NSStringFromUIEdgeInsets(self.tableView.contentInset));
     
     
-    UIImage *img = [UIImage imageNamed:@"tableViewHeader"];
-    UIImageView *imgV = [[UIImageView alloc] initWithImage:img];
-    imgV.frame =CGRectMake(0, 0, 0, self.view.frame.size.width * img.size.height / img.size.width);
-    self.tableView.tableHeaderView = imgV;
+//    UIImage *img = [UIImage imageNamed: @"tableViewHeader"];
+//    UIImageView *imgV = [[UIImageView alloc] initWithImage:img];
+//    imgV.frame = CGRectMake(0, 0, 0, self.view.frame.size.width * img.size.height / img.size.width);
+//    self.tableView.tableHeaderView = imgV;
 }
 
-
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return @"tableView section title";
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 20;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -62,6 +65,8 @@
 
     }else if(indexPath.row == 3) {
         cell.textLabel.text = @"change header height";
+    }else{
+        cell.textLabel.text = [NSString stringWithFormat:@"%zd", indexPath.row];
     }
     
     return cell;
